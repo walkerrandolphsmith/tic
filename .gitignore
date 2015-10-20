@@ -1,0 +1,6 @@
+.DS_Store
+
+react-native/
+electron/
+
+node_modules/
