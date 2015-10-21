@@ -13,7 +13,7 @@ import { nuclearComponent } from 'nuclear-js-react-addons';
 
 export default class GameComponent extends React.Component {
   render(){
-    let {board, player} = this.props.board;
-    return (<Board action={Game.actions} board={board} player={player} />);
+    let {board, player, winner, seq} = this.props.board;
+    return (<Board action={Game.actions} board={board} player={player} winningSequence={seq} />);
   }
 }

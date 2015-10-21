@@ -5,7 +5,7 @@ import _ from 'lodash';
 export default class Board extends React.Component {
   render(){
 
-    let {action, board, player} = this.props;
+    let {action, board, player, winningSequence} = this.props;
 
     let boardStyle = {
       display: 'flex',
@@ -22,7 +22,8 @@ export default class Board extends React.Component {
 
     let pieces = board.map((e, i)=> {
       let content = e.isEmpty ? '' : e.player;
-      return (<Piece key={i} action={action} index={i} content={content} />);
+      let isWinningPiece = _.contains(winningSequence, i);
+      return (<Piece key={i} action={action} index={i} content={content} isWinningPiece={isWinningPiece} />);
     });
 
     pieces = _.chunk(pieces.toArray(), 3).map((group, i)=> {
