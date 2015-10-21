@@ -26,6 +26,6 @@ function clickHandler(state, payload){
 
 function updateBoard(state, payload){
   let i = state.get('selectedPiece');
-  let newState = state.update('board', s => s.set(i, 'X'))
+  let newState = state.update('board', s => s.set(i, payload))
   return newState;
 }

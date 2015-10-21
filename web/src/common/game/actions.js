@@ -1,12 +1,13 @@
 import Flux from './../../flux';
 import ActionTypes from './action-types';
-import {isSelectedPieceValid} from './getters';
+import * as Getters from './getters';
 
 export default (payload) => {
   Flux.dispatch(ActionTypes.CLICK, payload);
-  // if the player selects a valid piece change the current player
-  if (Flux.evaluate(isSelectedPieceValid)){
-    Flux.dispatch(ActionTypes.UPDATEBOARD);
+  // if the player selects a valid piece, then update board and change the current player
+  if (Flux.evaluate(Getters.isSelectedPieceValid)){
+    let currentPlayer = Flux.evaluate(Getters.currentPlayer);
+    Flux.dispatch(ActionTypes.UPDATEBOARD, currentPlayer);
     Flux.dispatch(ActionTypes.NEXTPLAYER);
   }
 }

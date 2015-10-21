@@ -8,3 +8,10 @@ export const isSelectedPieceValid = [
     return board.get(selectedPiece) === '_';
   }
 ]
+
+export const currentPlayer = [
+  ['player', 'currentPlayer'],
+  function(currentPlayer){
+    return currentPlayer;
+  }
+]
