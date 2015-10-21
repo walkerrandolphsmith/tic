@@ -20353,7 +20353,7 @@
 	var Immutable = _nuclearJs2['default'].Immutable;
 
 	var isSelectedPieceValid = [['game', 'selectedPiece'], ['game', 'board'], function (selectedPiece, board) {
-	  var s = selectedPiece.get(0);
+	  var s = selectedPiece;
 	  var p = board.get(s);
 	  console.log(p === '_');
 	  return p === '_';
@@ -20389,20 +20389,18 @@
 	  getInitialState: function getInitialState() {
 	    return _nuclearJs2['default'].toImmutable({
 	      board: ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
-	      selectedPiece: [-1]
+	      selectedPiece: -1
 	    });
 	  }
 	});
 
 	function clickHandler(state, payload) {
-	  var newState = state.update('selectedPiece', function (s) {
-	    return s.set(0, payload);
-	  });
+	  var newState = state.set('selectedPiece', payload);
 	  return newState;
 	}
 
 	function updateBoard(state, payload) {
-	  var i = state.get('selectedPiece').get(0);
+	  var i = state.get('selectedPiece');
 	  var newState = state.update('board', function (s) {
 	    return s.set(i, 'X');
 	  });

@@ -5,7 +5,7 @@ export const isSelectedPieceValid = [
   ['game', 'selectedPiece'],
   ['game', 'board'],
   function(selectedPiece, board){
-    let s = selectedPiece.get(0);
+    let s = selectedPiece;
     let p = board.get(s);
     console.log(p === '_');
     return p === '_';

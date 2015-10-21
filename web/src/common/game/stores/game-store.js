@@ -14,18 +14,18 @@ export default Nuclear.Store({
       '_','_','_',
       '_','_','_'
       ],
-      selectedPiece: [-1]
+      selectedPiece: -1
     })
   }
 })
 
 function clickHandler(state, payload){
-  let newState = state.update('selectedPiece', s => s.set(0, payload));
+  let newState = state.set('selectedPiece', payload);
   return newState
 }
 
 function updateBoard(state, payload){
-  let i = state.get('selectedPiece').get(0);
+  let i = state.get('selectedPiece');
   let newState = state.update('board', s => s.set(i, 'X'))
   return newState;
 }
