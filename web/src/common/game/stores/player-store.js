@@ -8,12 +8,13 @@ export default Nuclear.Store({
 
   getInitialState: function() {
     return Nuclear.toImmutable({
-      nextPlayer: nextPlayer('O')
+      currentPlayer: 'X'
     })
   },
 })
 
 function nextPlayer(state) {
-  console.log("state", state);
-  return state === 'X' ? 'O' : 'X';
+  let nextPlayer = state.get('currentPlayer') === 'X' ? 'O' : 'X';
+  let newState = state.set('currentPlayer', nextPlayer);
+  return newState;
 }
