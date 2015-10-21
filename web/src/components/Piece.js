@@ -8,13 +8,13 @@ export default class Piece extends React.Component {
     let q = Math.floor(index / 3); //[0,2] //row
     let r = index % 3; //[0,2] //column
 
-    let width = 50;
-    let height = 50;
 
     let borderColorTop = q ? 'black' : 'transparent';
     let borderColorLeft = r ? 'black' : 'transparent';
 
     let styles = {
+      width: '50',
+      height: '50',
       flex: '1',
       display: 'flex',
       alignItems: 'center',
@@ -27,21 +27,11 @@ export default class Piece extends React.Component {
       borderLeftColor: borderColorLeft
     };
 
-    let innerStyles = {
-      width: width,
-      height: height,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
 
     return (<div
       key={index}
       className='piece'
       onClick={action.bind(this,index)}
-      style={styles}>
-        <span
-          style={innerStyles}>{content}</span>
-    </div>);
+      style={styles}>{content}</div>);
   }
 }
