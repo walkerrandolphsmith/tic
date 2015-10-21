@@ -5,7 +5,8 @@ export const isSelectedPieceValid = [
   ['game', 'selectedPiece'],
   ['game', 'board'],
   function(selectedPiece, board){
-    return board.get(selectedPiece) === '_';
+    let { winner } = getWinner(board.toArray());
+    return !winner && board.get(selectedPiece) === '_';
   }
 ]
 
