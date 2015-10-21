@@ -1,5 +1,7 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
-  CLICK: null
+  CLICK: null,
+  UPDATEBOARD: null,
+  NEXTPLAYER: null
 })

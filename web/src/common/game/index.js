@@ -2,9 +2,11 @@ import Flux from './../../flux';
 import Actions from './actions';
 import Getters from './getters';
 import GameStore from './stores/game-store';
+import PlayerStore from './stores/player-store';
 
 Flux.registerStores({
-  game: GameStore
+  game: GameStore,
+  player: PlayerStore
 });
 
 export default {

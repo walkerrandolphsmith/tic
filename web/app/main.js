@@ -60,7 +60,7 @@
 
 	var _commonGame2 = _interopRequireDefault(_commonGame);
 
-	var _componentsGame = __webpack_require__(166);
+	var _componentsGame = __webpack_require__(167);
 
 	var _componentsGame2 = _interopRequireDefault(_componentsGame);
 
@@ -19645,8 +19645,13 @@
 
 	var _storesGameStore2 = _interopRequireDefault(_storesGameStore);
 
+	var _storesPlayerStore = __webpack_require__(166);
+
+	var _storesPlayerStore2 = _interopRequireDefault(_storesPlayerStore);
+
 	_flux2['default'].registerStores({
-	  game: _storesGameStore2['default']
+	  game: _storesGameStore2['default'],
+	  player: _storesPlayerStore2['default']
 	});
 
 	exports['default'] = {
@@ -20237,10 +20242,13 @@
 
 	var _getters = __webpack_require__(164);
 
-	var _getters2 = _interopRequireDefault(_getters);
-
 	exports['default'] = function (payload) {
 	  _flux2['default'].dispatch(_actionTypes2['default'].CLICK, payload);
+	  // if the player selects a valid piece change the current player
+	  if (_flux2['default'].evaluate(_getters.isSelectedPieceValid)) {
+	    _flux2['default'].dispatch(_actionTypes2['default'].UPDATEBOARD);
+	    _flux2['default'].dispatch(_actionTypes2['default'].NEXTPLAYER);
+	  }
 	};
 
 	module.exports = exports['default'];
@@ -20262,7 +20270,9 @@
 	var _keymirror2 = _interopRequireDefault(_keymirror);
 
 	exports['default'] = (0, _keymirror2['default'])({
-	  CLICK: null
+	  CLICK: null,
+	  UPDATEBOARD: null,
+	  NEXTPLAYER: null
 	});
 	module.exports = exports['default'];
 
@@ -20342,10 +20352,13 @@
 
 	var Immutable = _nuclearJs2['default'].Immutable;
 
-	exports['default'] = [['board'], function (board) {
-	  console.log("I am a getter", board);
+	var isSelectedPieceValid = [['game', 'selectedPiece'], ['game', 'board'], function (selectedPiece, board) {
+	  var s = selectedPiece.get(0);
+	  var p = board.get(s);
+	  console.log(p === '_');
+	  return p === '_';
 	}];
-	module.exports = exports['default'];
+	exports.isSelectedPieceValid = isSelectedPieceValid;
 
 /***/ },
 /* 165 */
@@ -20370,19 +20383,30 @@
 	exports['default'] = _nuclearJs2['default'].Store({
 	  initialize: function initialize() {
 	    this.on(_actionTypes2['default'].CLICK, clickHandler);
+	    this.on(_actionTypes2['default'].UPDATEBOARD, updateBoard);
 	  },
 
 	  getInitialState: function getInitialState() {
 	    return _nuclearJs2['default'].toImmutable({
-	      board: ['_', '_', '_', '_', '_', '_', '_', '_', '_']
+	      board: ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
+	      selectedPiece: [-1]
 	    });
 	  }
 	});
 
 	function clickHandler(state, payload) {
-	  console.log("STATE: ", state.get('board'));
-	  console.log("PAYLOAD: ", payload);
-	  return ['_', '_', '_', '_', '_', '_', '_', '_', '_'];
+	  var newState = state.update('selectedPiece', function (s) {
+	    return s.set(0, payload);
+	  });
+	  return newState;
+	}
+
+	function updateBoard(state, payload) {
+	  var i = state.get('selectedPiece').get(0);
+	  var newState = state.update('board', function (s) {
+	    return s.set(i, 'X');
+	  });
+	  return newState;
 	}
 	module.exports = exports['default'];
 
@@ -20396,44 +20420,32 @@
 	  value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	var _nuclearJs = __webpack_require__(160);
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	var _nuclearJs2 = _interopRequireDefault(_nuclearJs);
 
-	var _react = __webpack_require__(1);
+	var _actionTypes = __webpack_require__(162);
 
-	var _react2 = _interopRequireDefault(_react);
+	var _actionTypes2 = _interopRequireDefault(_actionTypes);
 
-	var _Board = __webpack_require__(167);
+	exports['default'] = _nuclearJs2['default'].Store({
+	  initialize: function initialize() {
+	    this.on(_actionTypes2['default'].NEXTPLAYER, nextPlayer);
+	  },
 
-	var _Board2 = _interopRequireDefault(_Board);
-
-	var Game = (function (_React$Component) {
-	  _inherits(Game, _React$Component);
-
-	  function Game() {
-	    _classCallCheck(this, Game);
-
-	    _get(Object.getPrototypeOf(Game.prototype), 'constructor', this).apply(this, arguments);
+	  getInitialState: function getInitialState() {
+	    return _nuclearJs2['default'].toImmutable({
+	      nextPlayer: nextPlayer('O')
+	    });
 	  }
+	});
 
-	  _createClass(Game, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(_Board2['default'], { action: this.props.action });
-	    }
-	  }]);
-
-	  return Game;
-	})(_react2['default'].Component);
-
-	exports['default'] = Game;
+	function nextPlayer(state) {
+	  console.log("state", state);
+	  return state === 'X' ? 'O' : 'X';
+	}
 	module.exports = exports['default'];
 
 /***/ },
@@ -20460,7 +20472,57 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Piece = __webpack_require__(168);
+	var _Board = __webpack_require__(168);
+
+	var _Board2 = _interopRequireDefault(_Board);
+
+	var Game = (function (_React$Component) {
+	  _inherits(Game, _React$Component);
+
+	  function Game() {
+	    _classCallCheck(this, Game);
+
+	    _get(Object.getPrototypeOf(Game.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(Game, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(_Board2['default'], { action: this.props.action });
+	    }
+	  }]);
+
+	  return Game;
+	})(_react2['default'].Component);
+
+	exports['default'] = Game;
+	module.exports = exports['default'];
+
+/***/ },
+/* 168 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Piece = __webpack_require__(169);
 
 	var _Piece2 = _interopRequireDefault(_Piece);
 
@@ -20503,7 +20565,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
