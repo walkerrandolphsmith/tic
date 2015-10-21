@@ -3,8 +3,10 @@ import React from 'react';
 export default class Piece extends React.Component {
   render(){
 
-    let q = Math.floor(this.props.index / 3); //[0,2] //row
-    let r = this.props.index % 3; //[0,2] //column
+    let {action, index, content} = this.props;
+
+    let q = Math.floor(index / 3); //[0,2] //row
+    let r = index % 3; //[0,2] //column
 
     let borderTop = q ? '1px solid black' : 'none';
     let borderLeft = r ? '1px solid black': 'none';
@@ -19,6 +21,6 @@ export default class Piece extends React.Component {
       borderLeft: borderLeft
     };
 
-    return (<div key={this.props.index} onClick={this.props.action.bind(this,this.props.index)} style={styles}></div>);
+    return (<div key={index} onClick={action.bind(this,index)} style={styles}>{content}</div>);
   }
 }
