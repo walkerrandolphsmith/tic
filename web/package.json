@@ -9,16 +9,17 @@
   "author": "walker randolph smith",
   "license": "ISC",
   "dependencies": {
-    "nuclear-js": "^1.0.2",
-    "keymirror": "^0.1.0",
-    "lodash": "^2.4.1",
-    "react": "^0.14.x",
-    "react-dom": "^0.14.0",
+    "babel": "^5.8.23",
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
-    "babel": "^5.8.23",
-    "react-pure-render": "^1.0.2",
-    "react-prism": "^3.0.0"
+    "keymirror": "^0.1.0",
+    "lodash": "^2.4.1",
+    "nuclear-js": "^1.0.2",
+    "nuclear-js-react-addons": "^0.2.0",
+    "react": "^0.14.x",
+    "react-dom": "^0.14.0",
+    "react-prism": "^3.0.0",
+    "react-pure-render": "^1.0.2"
   },
   "devDependencies": {
     "webpack": "^1.4.4",
