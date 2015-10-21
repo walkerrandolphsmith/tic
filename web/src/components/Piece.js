@@ -8,19 +8,40 @@ export default class Piece extends React.Component {
     let q = Math.floor(index / 3); //[0,2] //row
     let r = index % 3; //[0,2] //column
 
-    let borderTop = q ? '1px solid black' : 'none';
-    let borderLeft = r ? '1px solid black': 'none';
+    let width = 50;
+    let height = 50;
+
+    let borderColorTop = q ? 'black' : 'transparent';
+    let borderColorLeft = r ? 'black' : 'transparent';
 
     let styles = {
-      width: '50',
-      height: '50',
-      position: 'absolute',
-      left: 0 + 50 * r,
-      top: 0 + 50 * q,
-      borderTop: borderTop,
-      borderLeft: borderLeft
+      flex: '1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderTopWidth: '1px',
+      borderLeftWidth: '1px',
+      borderTopStyle: 'solid',
+      borderLeftStyle: 'solid',
+      borderTopColor: borderColorTop,
+      borderLeftColor: borderColorLeft
     };
 
-    return (<div key={index} onClick={action.bind(this,index)} style={styles}>{content}</div>);
+    let innerStyles = {
+      width: width,
+      height: height,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+
+    return (<div
+      key={index}
+      className='piece'
+      onClick={action.bind(this,index)}
+      style={styles}>
+        <span
+          style={innerStyles}>{content}</span>
+    </div>);
   }
 }

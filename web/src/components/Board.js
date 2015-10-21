@@ -1,15 +1,23 @@
 import React from 'react';
 import Piece from './Piece';
+import _ from 'lodash';
 
 export default class Board extends React.Component {
   render(){
 
     let {action, board, player} = this.props;
 
-    let styles = {
-      position: 'relative',
+    let boardStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      height: '150px',
       width: '150px',
       margin: '0px auto'
+    }
+
+    let rowStyle = {
+      flex: '1',
+      display: 'flex'
     }
 
     let pieces = board.map((e, i)=> {
@@ -17,6 +25,10 @@ export default class Board extends React.Component {
       return (<Piece key={i} action={action} index={i} content={content} />);
     });
 
-    return (<div style={styles}>{pieces}</div>);
+    pieces = _.chunk(pieces.toArray(), 3).map((group, i)=> {
+      return (<div key={i} className='row' style={rowStyle}>{group}</div>)
+    });
+
+    return (<div className='board' style={boardStyle}>{pieces}</div>);
   }
 }
