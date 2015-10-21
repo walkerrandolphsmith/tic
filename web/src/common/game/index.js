@@ -1,6 +1,6 @@
 import Flux from './../../flux';
 import Actions from './actions';
-import Getters from './getters';
+import * as Getters from './getters';
 import GameStore from './stores/game-store';
 import PlayerStore from './stores/player-store';
 

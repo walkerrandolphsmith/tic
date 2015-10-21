@@ -15,3 +15,12 @@ export const currentPlayer = [
     return currentPlayer;
   }
 ]
+
+export const board = [
+  ['game', 'board'],
+  ['player', 'currentPlayer'],
+  function(board, currentPlayer){
+    let newBoard = board.map((e)=>({ isEmpty: e === '_', player: e }));
+    return { board: newBoard, player: currentPlayer };
+  }
+]
