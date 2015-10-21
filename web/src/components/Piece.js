@@ -11,6 +11,7 @@ export default class Piece extends React.Component {
 
     let borderColorTop = q ? 'black' : 'transparent';
     let borderColorLeft = r ? 'black' : 'transparent';
+    let cursor = content ? 'default' : 'pointer';
 
     let styles = {
       width: '50',
@@ -24,7 +25,8 @@ export default class Piece extends React.Component {
       borderTopStyle: 'solid',
       borderLeftStyle: 'solid',
       borderTopColor: borderColorTop,
-      borderLeftColor: borderColorLeft
+      borderLeftColor: borderColorLeft,
+      cursor: cursor
     };
 
 
