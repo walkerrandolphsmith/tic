@@ -1,4 +1,4 @@
-import Flux from './../../flux';
+import Flux from './../flux';
 import ActionTypes from './action-types';
 import * as Getters from './getters';
 
