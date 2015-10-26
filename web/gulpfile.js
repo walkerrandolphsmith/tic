@@ -15,5 +15,5 @@ gulp.task('server', function() {
 })
 
 gulp.task('webpack', shell.task([
-  './node_modules/webpack/bin/webpack.js --watch --progress --colors'
+  './../node_modules/webpack/bin/webpack.js --watch --progress --colors'
 ]))

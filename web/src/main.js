@@ -4,8 +4,8 @@ import GameComponent from './components/Game';
 
 import Nuclear from 'nuclear-js';
 import provideReactor from 'nuclear-js-react-addons/provideReactor';
-import Flux from './common/flux';
-import Game from './common/game';
+import Flux from './../../common/flux';
+import Game from './../../common/game';
 
 let App = provideReactor(GameComponent);
 
