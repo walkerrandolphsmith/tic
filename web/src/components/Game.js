@@ -12,8 +12,15 @@ export default class GameComponent extends React.Component {
   render(){
     let {board, player, winner, seq} = this.props.board;
 
+    let wrapperStyles = {
+      position: 'relative',
+      top: '50%',
+      transform: 'translateY(-50%)'
+    }
+
     let gameStyle = {
       position: 'absolute',
+      height: '100%',
       left: 0,
       right: 0,
       bottom: 0,
@@ -35,7 +42,9 @@ export default class GameComponent extends React.Component {
 
     return (
       <div className="game" style={gameStyle}>
-        <Board action={this.props.action} board={board} player={player} winningSequence={seq} color={backgroundColor} />
+        <div style={wrapperStyles}>
+          <Board action={this.props.action} board={board} player={player} winningSequence={seq} color={backgroundColor} />
+        </div>
       </div>
     );
   }
