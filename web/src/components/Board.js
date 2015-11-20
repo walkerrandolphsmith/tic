@@ -7,11 +7,13 @@ export default class Board extends React.Component {
 
     let {action, board, player, winningSequence, color} = this.props;
 
+    let size = 600;
+
     let boardStyle = {
       display: 'flex',
       flexDirection: 'column',
-      height: '150px',
-      width: '150px',
+      height: `${size}px`,
+      width: `${size}px`,
       margin: '0px auto'
     }
 
@@ -23,7 +25,7 @@ export default class Board extends React.Component {
     let pieces = board.map((e, i)=> {
       let content = e.isEmpty ? '' : e.player;
       let isWinningPiece = _.contains(winningSequence, i);
-      return (<Piece key={i} action={action} index={i} content={content} isWinningPiece={isWinningPiece} color={color} />);
+      return (<Piece key={i} index={i} action={action} content={content} isWinningPiece={isWinningPiece} size={size} color={color}  />);
     });
 
     pieces = _.chunk(pieces.toArray(), 3).map((group, i)=> {

@@ -3,7 +3,7 @@ import React from 'react';
 export default class Piece extends React.Component {
   render(){
 
-    let {action, index, content, isWinningPiece, color} = this.props;
+    let {action, index, content, isWinningPiece, size, color} = this.props;
 
     let q = Math.floor(index / 3); //[0,2] //row
     let r = index % 3; //[0,2] //column
@@ -12,9 +12,12 @@ export default class Piece extends React.Component {
     let borderColorLeft = r ? 'black' : 'transparent';
     let cursor = content ? 'default' : 'pointer';
 
+    let pieceSize = Math.floor(size / 3);
+
     let styles = {
-      width: '50',
-      height: '50',
+      width: `${pieceSize}px`,
+      height: `${pieceSize}px`,
+      fontSize: '5em',
       flex: '1',
       display: 'flex',
       alignItems: 'center',
