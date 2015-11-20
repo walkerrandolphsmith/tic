@@ -3,14 +3,13 @@ import React from 'react';
 export default class Piece extends React.Component {
   render(){
 
-    let {action, index, content, isWinningPiece} = this.props;
+    let {action, index, content, isWinningPiece, color} = this.props;
 
     let q = Math.floor(index / 3); //[0,2] //row
     let r = index % 3; //[0,2] //column
 
     let borderColorTop = q ? 'black' : 'transparent';
     let borderColorLeft = r ? 'black' : 'transparent';
-    let background = isWinningPiece ? 'green' : 'transparent';
     let cursor = content ? 'default' : 'pointer';
 
     let styles = {
@@ -26,7 +25,7 @@ export default class Piece extends React.Component {
       borderLeftStyle: 'solid',
       borderTopColor: borderColorTop,
       borderLeftColor: borderColorLeft,
-      background: background,
+      background: color,
       cursor: cursor
     };
 
